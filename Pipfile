@@ -5,6 +5,18 @@ name = "pypi"
 
 [packages]
 django = "*"
+djangorestframework = "*"
+django-environ = "*"
+django-filter = "*"
+django-autoslug = "*"
+django-countries = "*"
+pillow = "*"
+django-phonenumber-field = "*"
+phonenumbers = "*"
+psycopg2-binary = "*"
+flake8 = "*"
+black = "*"
+isort = "*"
 
 [dev-packages]
 
