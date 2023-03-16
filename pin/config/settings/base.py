@@ -169,7 +169,7 @@ DJOSER = {
     "ACTIVATION_URL": "activate/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": True,
     "SERIALIZERS": {
-        "user_create": "pin.apps.users.serializers.UserCreateSerializer",
+        "user_create": "pin.apps.users.serializers.CreateUserSerializer",
         "user": "pin.apps.users.serializers.UserSerializer",
         "current_user": "pin.apps.users.serializers.UserSerializer",
         "user_delete": "djoser.serializers.UserDeleteSerializer",
