@@ -3,15 +3,19 @@ import environ
 
 from pathlib import Path
 
-env = environ.Env(
-    DEBUG=(bool,False)
-)
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = environ.Path(__file__) - 4
 APPS_DIR = BASE_DIR.path("pin/apps")
 
-environ.Env.read_env(BASE_DIR.path(".env"))
+env = environ.Env(
+    DJANGO_DOT_ENV_FILE=False
+)
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", False)
+if READ_DOT_ENV_FILE:
+    env_file = str(BASE_DIR.path(".env"))
+    print("Loading : {}".format(env_file))
+    env.read_env(env_file)
+    print("The .env file has been loaded. See base.py for more information.")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
