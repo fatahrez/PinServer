@@ -35,7 +35,7 @@ down-v:
 volume:
 	docker volume inspect estate-src_postgres_data
 
-estate-db:
+pin-db:
 	docker compose exec postgres-db psql --username=abdulfatahmohamed --dbname=pin
 
 test:
