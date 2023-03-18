@@ -45,3 +45,7 @@ class CreateUserSerializer(UserCreateSerializer):
             "first_name", 
             "password"
         ]
+
+
+class EmailSerializer(serializers.Serializer):
+    email = serializers.EmailField()
