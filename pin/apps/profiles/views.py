@@ -1,15 +1,13 @@
-from rest_framework import generics, permissions, status
+from django.http import JsonResponse
+from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-
-from pin.apps.users.models import User
-
-from django_countries.models import Country
+from django_countries import countries
 
 from .models import Profile
 from .exceptions import ProfileNotFound
-from .serializers import UpdateProfileSerializer, CountriesSerializer
+from .serializers import UpdateProfileSerializer
 
 
 class UpdateProfileAPIView(APIView):
@@ -37,7 +35,6 @@ class UpdateProfileAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 
-class CountriesListAPIView(generics.ListAPIView):
-    permission_classes = [permissions.AllowAny]
-    serializer_class = CountriesSerializer
-    queryset = Country.objects.all()
+def country_list(request):
+    country_list = [{"name": name, "short_code": code} for code, name in countries]
+    return JsonResponse(country_list, safe=False)
