@@ -17,7 +17,7 @@ class EmailAPIView(APIView):
             try:
                 User.objects.get(email=email)
             except User.DoesNotExist:
-                return Response({"message": False}, status=status.HTTP_404_NOT_FOUND)
+                return Response({"message": False}, status=status.HTTP_200_OK)
             return Response({"message": True}, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
