@@ -1,9 +1,9 @@
-from rest_framework import generics, permissions, status
+from django.http import JsonResponse
+from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-
-from pin.apps.users.models import User
+from django_countries import countries
 
 from .models import Profile
 from .exceptions import ProfileNotFound
@@ -33,3 +33,8 @@ class UpdateProfileAPIView(APIView):
         serializer.is_valid()
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+def country_list(request):
+    country_list = [{"name": name, "short_code": code} for code, name in countries]
+    return JsonResponse(country_list, safe=False)
