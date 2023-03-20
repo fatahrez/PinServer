@@ -5,9 +5,11 @@ from rest_framework.views import APIView
 
 from pin.apps.users.models import User
 
+from django_countries.models import Country
+
 from .models import Profile
 from .exceptions import ProfileNotFound
-from .serializers import UpdateProfileSerializer
+from .serializers import UpdateProfileSerializer, CountriesSerializer
 
 
 class UpdateProfileAPIView(APIView):
@@ -33,3 +35,9 @@ class UpdateProfileAPIView(APIView):
         serializer.is_valid()
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+class CountriesListAPIView(generics.ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = CountriesSerializer
+    queryset = Country.objects.all()
