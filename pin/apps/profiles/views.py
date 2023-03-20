@@ -17,7 +17,7 @@ class UpdateProfileAPIView(APIView):
 
     def patch(self, request, username):
         try:
-            Profile.objects.get(username=username)
+            Profile.objects.get(user__username=username)
         except Profile.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         
