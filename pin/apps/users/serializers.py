@@ -3,6 +3,7 @@ from django_countries.serializer_fields import CountryField
 from djoser.serializers import UserCreateSerializer
 from phonenumber_field.serializerfields import PhoneNumberField
 from rest_framework import serializers
+from rest_framework_simplejwt.tokens import RefreshToken
 
 User = get_user_model()
 
@@ -36,6 +37,7 @@ class UserSerializer(serializers.ModelSerializer):
     
 
 class CreateUserSerializer(UserCreateSerializer):
+    token = serializers.SerializerMethodField()
     class Meta(UserCreateSerializer.Meta):
         model = User
         fields = [
@@ -43,8 +45,16 @@ class CreateUserSerializer(UserCreateSerializer):
             "username",
             "email", 
             "first_name", 
-            "password"
+            "password",
+            "token"
         ]
+
+    def get_token(self, user):
+        refresh = RefreshToken.for_user(user)
+        return {
+            "access": str(refresh.access_token),
+            "refresh": str(refresh)
+        }
 
 
 class EmailSerializer(serializers.Serializer):
